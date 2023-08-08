@@ -279,15 +279,15 @@ data:
         log_timestamp true
         listener 9001
 
-\# separator where the second component begins
-\---
+# separator where the second component begins
+---
 apiVersion: v1
 kind: Secret
 metadata:
     name: mosquitto-secret-file
 type: Opaque
 data:
-\# some more config stuff here
+# some more config stuff here
 ```
 
 Finally, it is worth mentioning that altough Kubernetes Configuration Files are typically written in YAML, Kubernetes also supports writing configuration files in JSON 
