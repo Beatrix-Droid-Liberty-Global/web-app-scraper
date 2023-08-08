@@ -284,8 +284,6 @@ data:
         log_type all
         log_timestamp true
         listener 9001
-
-#separator where the second component begins
 ---
 apiVersion: v1
 kind: Secret
