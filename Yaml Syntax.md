@@ -1,4 +1,5 @@
 # The YAML Syntax
+This is a YAML primer that should quickly enable users to pick up the YAML language and start using it in the various devops tools.
 
 ## What is YAML?
 YAML is a serialization language, just like JSON and XML. A serialization language is a standard format to transfer data, between applications written in different technologies.
@@ -156,3 +157,143 @@ Equivalent in JSON:
 </code>
 
 ## Real YAML example with a Kubernetes Configuration File:
+Here is an example of a real YAML file that is a Kubernetes configuration file:
+<code>
+apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+    labels:
+        app: nginx
+spec:
+    containers:
+    - name: ninginx
+      image: nginx
+      ports:
+      - containerPort: 80
+      volumneMouts:
+      - name: nginx-vol
+        mountPath: /usr/nginx/html
+    - name: sidecar-container
+      image: curl/images/curl
+      command: ["/bin/sh"]
+      args: ["-c", "echo Hello from the sidecar container; sleep 300"]
+</code>
+
+What we have here are:
+- Key-value pairs
+- metadata =  object
+- labels =  object
+- spec = object
+-  containers = list of objects
+- ports =  list
+-  volumeMounts =  list of objects
+
+###  Multiline Strings
+Multiline strings are created by passing the "|" (pipe) symbol in front of the key,
+and writing the new string in indendented new lines:
+
+<code>
+multilineString: |
+    this is a multiline
+    string. On two lines
+</code>
+
+If you have a long string which SHOULD be interpreted as a SINGLE LINE string but for readability you want to write it as a multiline string, you will use the ">" instead:
+<code>
+multilineString: >
+    this is a multiline
+    string. On two lines
+</code>
+
+This is the same as writing:
+<code>
+multilineString: this is a multiline string. On two lines
+</code>
+
+Here is an example of a config file:
+
+<code>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    nameL mosquitto-config-file
+data:
+    # this code shouldbe executed one line at a time hence the pipe
+    mosquitto.conf: |
+        log_dest stdout
+        log_type all
+        log_timestamp true
+        listener 9001
+</code>
+
+Here is another example, where it executes a shell command and calls a shell script. You can actually
+put an entire shell script into a pipe command
+<code>
+command:
+    - sh
+    - c
+    - |
+      #!/usr/bin/env bash e
+      http (){
+        local path="${1}"
+        set -- -XGET -s --fail
+        # some more stuff here
+        curl -k "s@" "http://localhost:5601${path}"
+      }
+      http "app/kibana"
+</code>
+
+## Environment Variables
+You can access environment variables of a yaml file with the "$" (dollar sign) symbol:
+
+<code>
+command:
+    - /bin/sh
+    - -ec
+    - >-
+      mysql -h 127.0.0.1 -u root -p$MYSQL_ROOT_PASSWORD -e "SELECT 1"
+</code>
+
+## YAML placeholders
+Rather than writing variables inside, you can define placeholders with double curly braces. The inside can be defined with tempalte generation
+<code>
+apiVersion: v1
+kind: Service
+metadata:
+    name: {{.Values.service.name}}
+spec:
+    selector:
+        app: {{.Values.service.app}}
+    ports:
+        - protocol: TCP
+          port: {{.Value.service.targetport}}
+</code>
+
+## multiple YAML components:
+You can write out different multiple YAML components in a single file with a line separator that consists of three dashes like this"---":
+
+<code>
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: mosquitto-config-file
+data:
+    mosquitto.conf: |
+        log_dest stdout
+        log_type all
+        log_timestamp true
+        listener 9001
+
+#separator where the second component begins
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mosquitto-secret-file
+type: Opaque
+data:
+#some more config stuff here
+</code>
+
+Finally, it is worth mentioning that altough Kubernetes Configuration Files are typically written in YAML, Kubernetes also supports writing configuration files in JSON 
