@@ -47,7 +47,6 @@ Indentation is very important in YAML, just like in python. All key-value pairs 
 
 - Some useful YAML linters are: https://rhysd.github.io/actionlint/  (for github actions and  https://codebeautify.org/YAML-validator?utm_content=cmp-true)
 
-
 ### lists:
 You can create lists simply by using dashes:
 <code>
@@ -91,7 +90,7 @@ microservice:
 ## More on Lists
 The above example was an object that contained a list with a single object.
 
-### lists of objects
+### Lists of objects
 We can also define lists of objects more generically by adding a dash to every new object of the list.
 <code>
 microservice:
@@ -123,19 +122,15 @@ A microservice object which has a key called microservice and a value that is a 
 }
 </code>
 
-
-### lists of simple objects
-We can also define lists of simple objects like so:
-
+### Lists of simple objects
 <code>
 microservices:
     - user-authentication
     - shopping-cart
 <code>
 
-### list of lists
+### List of lists
 We can also define lists of lists like so:
-
 <code>
 microservices:
     - user-authentication
