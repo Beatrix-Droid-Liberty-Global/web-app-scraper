@@ -104,7 +104,6 @@ microservice:
       version: 1.9
 </code>
 A microservice object which has a key called microservice and a value that is a list that contains two objects. Here is the equivalent in JSON:
-
 <code>
 {
   "microservice": [
@@ -139,14 +138,12 @@ microservices:
       - 1.9
       - 2.0
 </code>
-
 You can also use square brackets instead of dashes:
 <code>
 microservices:
     - user-authentication
       versions:[1.9, 2.0]
 </code>
-
 Equivalent in JSON:
 <code>
 {
@@ -198,21 +195,18 @@ multilineString: |
     this is a multiline
     string. On two lines
 </code>
-
 If you have a long string which SHOULD be interpreted as a SINGLE LINE string but for readability you want to write it as a multiline string, you will use the ">" instead:
 <code>
 multilineString: >
     this is a multiline
     string. On two lines
 </code>
-
 This is the same as writing:
 <code>
 multilineString: this is a multiline string. On two lines
 </code>
 
 Here is an example of a config file:
-
 <code>
 apiVersion: v1
 kind: ConfigMap
@@ -284,14 +278,16 @@ data:
         log_type all
         log_timestamp true
         listener 9001
----
+
+\# separator where the second component begins
+\---
 apiVersion: v1
 kind: Secret
 metadata:
     name: mosquitto-secret-file
 type: Opaque
 data:
-#some more config stuff here
+\# some more config stuff here
 </code>
 
 Finally, it is worth mentioning that altough Kubernetes Configuration Files are typically written in YAML, Kubernetes also supports writing configuration files in JSON 
