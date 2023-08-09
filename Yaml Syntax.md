@@ -156,3 +156,33 @@ Equivalent in JSON:
 </code>
 
 ## Real YAML example with a Kubernetes Configuration File:
+Let's look at an example of a real YAML file. This is a configuration file for Kubernetes:
+<code>
+apiVersion:1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports: 
+    - containerPort: 80
+    volumneMounts:
+    - name: nginx-vol
+      mountPath: /user/nginx/html
+
+
+
+</code>
+
+We have:
+- key-value pairs
+- metadata = object
+- labels = object
+- spec = object
+- containers =  lists of objects
+- ports = list
+- volumeMounts =  Lists of Objects
