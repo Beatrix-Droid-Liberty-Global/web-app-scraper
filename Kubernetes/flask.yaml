@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flask
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: flask
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: flask_web_scraper:1.00
+        image: beatrix1997/flask_web_scraper:1.00
         ports:
         - containerPort: 5000
 ---
@@ -30,6 +30,10 @@ spec:
     app: flask
   ports:
     - protocol: TCP
-      port: 80
+      port: 5000
       targetPort: 5000
       nodePort: 30100
+
+# to run this in github codespaces you have to do some port forwarding:
+# kubectl port-forward svc/flask-service 5000
+# kubectl {-n namespace, leave if default}  svc/{your service or ingress} {port number}
