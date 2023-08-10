@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash
 from bs4 import BeautifulSoup
 import requests, uuid, os, pathlib
-from image_scraper import *
+from FlaskWebScraper.image_scraper import *
 import bleach
 app = Flask(__name__)
 app.static_folder = "static"
