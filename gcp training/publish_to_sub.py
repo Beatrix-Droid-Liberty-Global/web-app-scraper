@@ -1,4 +1,5 @@
 import json
+import base64
 # from google.cloud import pubsub_v1
 
 
@@ -43,7 +44,13 @@ def get_callback(
     return callback
 
 
-data = json.dumps(record)
+with open('testpassport.png', "rb") as image:
+    img = image.read()
+
+
+data =  base64.b64encode(img).decode()
+
+#post_data = json.dumps(post_data)
 # When you publish a message, the client returns a future.
 publish_future = publisher.publish(topic_path, data.encode("utf-8"))
 # Non-blocking. Publish failures are handled in the callback function.
